@@ -1,8 +1,13 @@
 package com.AltiriaSpring.Model.dbaquamovil;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -19,7 +24,15 @@ public class TblLocales {
 	public Integer getIdLocal() {
 		return idLocal;
 	}
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "locales", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblDctosPeriodo
+	private List<TblDctosPeriodo> periodos;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localesCelular", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblDctosPeriodo
+	private List<TblTerceros> numerosCelular;
 
+	
+	//GETTER Y SETTERS
 	public void setIdLocal(Integer idLocal) {
 		this.idLocal = idLocal;
 	}
@@ -32,6 +45,8 @@ public class TblLocales {
 		this.razonSocial = razonSocial;
 	}
 
+	
+	// CONSTRUCTORES
 	public TblLocales() {
 		super();
 		// TODO Auto-generated constructor stub
