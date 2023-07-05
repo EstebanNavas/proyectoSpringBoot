@@ -44,6 +44,11 @@ public class TblLocales {
 	public void setRazonSocial(String razonSocial) {
 		this.razonSocial = razonSocial;
 	}
+	
+	@Override
+    public String toString() {
+        return "TblLocales [idLocal= " + idLocal + ", razonSocial= " + razonSocial + "]";
+    }
 
 	
 	// CONSTRUCTORES
