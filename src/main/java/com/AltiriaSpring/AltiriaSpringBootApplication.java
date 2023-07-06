@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.AltiriaSpring.Repository.dbaquamovil.TblDctosPeriodoRepo;
+import com.AltiriaSpring.Service.DBMailMarketing.TblMailCampaignService;
 import com.AltiriaSpring.Service.dbaquamovil.TblDctosPeriodoService;
 import com.AltiriaSpring.Service.dbaquamovil.TblLocalesService;
 import com.AltiriaSpring.Service.dbaquamovil.TblTercerosService;
@@ -21,6 +22,9 @@ public class AltiriaSpringBootApplication {
 	
 	@Autowired
 	private TblTercerosService tblTercerosService;
+	
+	@Autowired
+	private TblMailCampaignService tblMailCampaignService;
 
 
 	public static void main(String[] args) {
@@ -37,5 +41,10 @@ public class AltiriaSpringBootApplication {
 	        tblDctosPeriodoService.consultarNombrePeriodo(100, 202304);
 	        tblDctosPeriodoService.consultarFechaConRecargo(100, 202304);
 	        tblTercerosService.consultarNumerosCelular(100);
+	        
+	        tblMailCampaignService.consultarTextoSMS(100, 18);
+	        tblMailCampaignService.consultarFechayHora(100, 18);
+	        tblMailCampaignService.consultarIdCampaign(100, 18);
+	        tblMailCampaignService.consultarIdPlantilla(100, 18);
 	    }
 }
