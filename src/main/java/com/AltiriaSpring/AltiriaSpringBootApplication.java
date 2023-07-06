@@ -8,6 +8,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.AltiriaSpring.Repository.dbaquamovil.TblDctosPeriodoRepo;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailCampaignService;
+import com.AltiriaSpring.Service.DBMailMarketing.TblMailCreditoService;
+import com.AltiriaSpring.Service.DBMailMarketing.TblMailMarketingReporteService;
 import com.AltiriaSpring.Service.dbaquamovil.TblDctosPeriodoService;
 import com.AltiriaSpring.Service.dbaquamovil.TblLocalesService;
 import com.AltiriaSpring.Service.dbaquamovil.TblTercerosService;
@@ -25,6 +27,12 @@ public class AltiriaSpringBootApplication {
 	
 	@Autowired
 	private TblMailCampaignService tblMailCampaignService;
+	
+	@Autowired
+	private TblMailCreditoService tblMailCreditoService;
+	
+	@Autowired
+	TblMailMarketingReporteService  tblMailMarketingReporteService;
 
 
 	public static void main(String[] args) {
@@ -46,5 +54,11 @@ public class AltiriaSpringBootApplication {
 	        tblMailCampaignService.consultarFechayHora(100, 18);
 	        tblMailCampaignService.consultarIdCampaign(100, 18);
 	        tblMailCampaignService.consultarIdPlantilla(100, 18);
+	        
+	        tblMailCreditoService.consultaCreditoLocal(100, 18);
+	        tblMailCreditoService.consultaDebitoLocal(100, 18);
+	        tblMailCreditoService.consultaIdDcto(100, 18);
+	        
+	        tblMailMarketingReporteService.obtenerMaximoReporte();
 	    }
 }

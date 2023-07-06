@@ -60,6 +60,102 @@ public class TblMailMarketingReporte {
 	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 	@JoinColumn(name = "IDLOCAL")
 	private TblMailCampaign localesReporte;
+
+	public Integer getIdReporte() {
+		return idReporte;
+	}
+
+	public void setIdReporte(Integer idReporte) {
+		this.idReporte = idReporte;
+	}
+
+	public String getSistema() {
+		return sistema;
+	}
+
+	public void setSistema(String sistema) {
+		this.sistema = sistema;
+	}
+
+	public Integer getIdDcto() {
+		return idDcto;
+	}
+
+	public void setIdDcto(Integer idDcto) {
+		this.idDcto = idDcto;
+	}
+
+	public Integer getIdRequerimiento() {
+		return idRequerimiento;
+	}
+
+	public void setIdRequerimiento(Integer idRequerimiento) {
+		this.idRequerimiento = idRequerimiento;
+	}
+
+	public String getDocumentoTercero() {
+		return documentoTercero;
+	}
+
+	public void setDocumentoTercero(String documentoTercero) {
+		this.documentoTercero = documentoTercero;
+	}
+
+	public Integer getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Integer estado) {
+		this.estado = estado;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Date getFechaHoraEvento() {
+		return fechaHoraEvento;
+	}
+
+	public void setFechaHoraEvento(Date fechaHoraEvento) {
+		this.fechaHoraEvento = fechaHoraEvento;
+	}
+
+	public String getException() {
+		return exception;
+	}
+
+	public void setException(String exception) {
+		this.exception = exception;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCelular() {
+		return celular;
+	}
+
+	public void setCelular(String celular) {
+		this.celular = celular;
+	}
+
+	public TblMailCampaign getLocalesReporte() {
+		return localesReporte;
+	}
+
+	public void setLocalesReporte(TblMailCampaign localesReporte) {
+		this.localesReporte = localesReporte;
+	}
 	
 //	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 //	@JoinColumn(name = "IDCAMPAIGN")
@@ -68,5 +164,7 @@ public class TblMailMarketingReporte {
 //	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 //	@JoinColumn(name = "IDPLANTILLA")
 //	private TblMailCampaign plantilla;
+	
+	
 
 }
