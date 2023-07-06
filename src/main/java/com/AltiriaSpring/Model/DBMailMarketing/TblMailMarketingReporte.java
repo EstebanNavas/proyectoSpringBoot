@@ -18,17 +18,14 @@ public class TblMailMarketingReporte {
 	@Column(name = "IDREPORTE")
 	private Integer idReporte;
 	
-//	@Column(name = "IDLOCAL")
-//	private Integer idLocal;
-	
 	@Column(name = "SISTEMA", columnDefinition = "nvarchar")
 	private String sistema;
 	
-//	@Column(name = "IDCAMPAIGN")
-//	private Integer idCampaign;
+	@Column(name = "IDCAMPAIGN")
+	private Integer idCampaign;
 	
-//	@Column(name = "IDPLANTILLA")
-//	private Integer idPlantilla;
+	@Column(name = "IDPLANTILLA")
+	private Integer idPlantilla;
 	
 	@Column(name = "IDDCTO")
 	private Integer idDcto;
@@ -75,6 +72,22 @@ public class TblMailMarketingReporte {
 
 	public void setSistema(String sistema) {
 		this.sistema = sistema;
+	}
+
+	public Integer getIdCampaign() {
+		return idCampaign;
+	}
+
+	public void setIdCampaign(Integer idCampaign) {
+		this.idCampaign = idCampaign;
+	}
+
+	public Integer getIdPlantilla() {
+		return idPlantilla;
+	}
+
+	public void setIdPlantilla(Integer idPlantilla) {
+		this.idPlantilla = idPlantilla;
 	}
 
 	public Integer getIdDcto() {
@@ -156,6 +169,8 @@ public class TblMailMarketingReporte {
 	public void setLocalesReporte(TblMailCampaign localesReporte) {
 		this.localesReporte = localesReporte;
 	}
+
+
 	
 //	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 //	@JoinColumn(name = "IDCAMPAIGN")
