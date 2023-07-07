@@ -18,31 +18,35 @@ public class TblTercerosService {
 
 	@Autowired
 	private TblTercerosRepo tblTercerosRepo;
-	
+
 	@Autowired
 	private TblLocalesRepo tblLocalesRepo;
-	
+
 	// EXTRAER NÚMEROS DE TELEFONO CELULAR
 	public List<String> consultarNumerosCelular(int idLocal) {
-	    Optional<TblLocales> localesOptional = tblLocalesRepo.findById(idLocal);
-	    if (localesOptional.isPresent()) {
-	        TblLocales locales = localesOptional.get();
-	        List<TblTerceros> celulares = tblTercerosRepo.findByLocalesCelular(locales);
-	        List<String> telefonosCelular = new ArrayList<>();
-	        for (TblTerceros local : celulares) {
-	            String telefonoCelular = local.getTelefonoCelular();
-	            telefonosCelular.add(telefonoCelular);
-	        }
-	        if (!telefonosCelular.isEmpty()) {
-	            System.out.println("Query 4 - IDlocal: " + idLocal + "  telefonosCelular: " + telefonosCelular);
-	            return telefonosCelular;
-	        } else {
-	            System.out.println("No se encontró ningún número celular para el local con el idLocal: " + idLocal);
-	            return Collections.emptyList();
-	        }
-	    } else {
-	        System.out.println("No se encontró el local con el idLocal: " + idLocal);
-	        return Collections.emptyList();
-	    }
+		Optional<TblLocales> localesOptional = tblLocalesRepo.findById(idLocal);
+		if (localesOptional.isPresent()) {
+			TblLocales locales = localesOptional.get();
+			List<TblTerceros> celulares = tblTercerosRepo.findByLocalesCelular(locales);
+			List<String> telefonosCelular = new ArrayList<>();
+			for (TblTerceros local : celulares) {
+				if (local.getTelefonoCelular().length() == 10) {
+					String telefonoCelular = local.getTelefonoCelular();
+					String numeroCelularConPrefijo = "57" + telefonoCelular;
+					telefonosCelular.add(String.valueOf(numeroCelularConPrefijo));
+				}
+
+			}
+			if (!telefonosCelular.isEmpty()) {
+				System.out.println("Query 4 - IDlocal: " + idLocal + "  telefonosCelular: " + telefonosCelular);
+				return telefonosCelular;
+			} else {
+				System.out.println("No se encontró ningún número celular para el local con el idLocal: " + idLocal);
+				return Collections.emptyList();
+			}
+		} else {
+			System.out.println("No se encontró el local con el idLocal: " + idLocal);
+			return Collections.emptyList();
+		}
 	}
 }
