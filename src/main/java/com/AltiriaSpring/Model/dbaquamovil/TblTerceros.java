@@ -15,7 +15,7 @@ public class TblTerceros {
 	
 	@Id
 	@Column(name = "IDCLIENTE", columnDefinition = "nvarchar")
-	private Integer idCliente;
+	private String idCliente;
 	
 	
 	@Column(name = "TELEFONOCELULAR", columnDefinition = "nvarchar")
@@ -29,12 +29,12 @@ public class TblTerceros {
 	
 	
 	//GETTER Y SETTERS
-	public Integer getIdCliente() {
+	public String getIdCliente() {
 		return idCliente;
 	}
 
 
-	public void setIdCliente(Integer idCliente) {
+	public void setIdCliente(String idCliente) {
 		this.idCliente = idCliente;
 	}
 
@@ -66,7 +66,7 @@ public class TblTerceros {
 	}
 
 
-	public TblTerceros(Integer idCliente, String telefonoCelular, TblLocales localesCelular) {
+	public TblTerceros(String idCliente, String telefonoCelular, TblLocales localesCelular) {
 		super();
 		this.idCliente = idCliente;
 		this.telefonoCelular = telefonoCelular;
