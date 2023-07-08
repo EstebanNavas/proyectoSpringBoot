@@ -1,10 +1,13 @@
 package com.AltiriaSpring.Model.DBMailMarketing;
 
-import java.sql.Date;
+
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,6 +18,7 @@ import javax.persistence.Table;
 public class TblMailMarketingReporte {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "IDREPORTE")
 	private Integer idReporte;
 	
@@ -43,7 +47,7 @@ public class TblMailMarketingReporte {
 	private String descripcion;
 	
 	@Column(name = "FECHAHORAEVENTO")
-	private Date fechaHoraEvento;
+	private Timestamp  fechaHoraEvento;
 	
 	@Column(name = "EXCEPTION", columnDefinition = "nvarchar")
 	private String exception;
@@ -130,11 +134,11 @@ public class TblMailMarketingReporte {
 		this.descripcion = descripcion;
 	}
 
-	public Date getFechaHoraEvento() {
+	public Timestamp  getFechaHoraEvento() {
 		return fechaHoraEvento;
 	}
 
-	public void setFechaHoraEvento(Date fechaHoraEvento) {
+	public void setFechaHoraEvento(Timestamp  fechaHoraEvento) {
 		this.fechaHoraEvento = fechaHoraEvento;
 	}
 

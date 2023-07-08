@@ -15,10 +15,14 @@ import com.AltiriaSpring.EnvioMensajeService;
 
 @Service
 public class AppThreadService implements Runnable {
-    private Integer xIdLocal  = 100;
+	
+	// Se declaran las variables qué serán los parametros
+    private int xIdLocal  = 100;
     private Integer xIdPeriodo = 202304;
     private Integer xidCampaigns = 18;
     
+    
+    //Se realiza la inyección de depencencias de los @service
     @Autowired
     private TblLocalesService tblLocalesService;
     
@@ -65,6 +69,8 @@ public class AppThreadService implements Runnable {
         String xFechayHora = "";
         
         try {
+        	
+        	// Se obtienen los diferentes metodos de consulta para las bases de datos dbaquamovil y DBMailMarketing
             textoSMS = tblMailCampaignService.consultarTextoSMS(xIdLocal, xidCampaigns);
             xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns);
             xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns);
@@ -78,6 +84,7 @@ public class AppThreadService implements Runnable {
             fechaConRecargo = tblDctosPeriodoService.consultarFechaConRecargo(xIdLocal, xIdPeriodo);
             xNumerosCelularArr = tblTercerosService.consultarNumerosCelular(xIdLocal).toArray(new String[0]);
             
+            // Se reemplazan las "xxx" del textoSMS dependiendo el xidCampaigns que le pasemos por parametro
             switch (xidCampaigns) {
                 case 18:
                     textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
@@ -93,15 +100,23 @@ public class AppThreadService implements Runnable {
                     return;
             }
             
+            // Se cambian los "/" por "-" para que pueda tener un formato valido a la hora de verificar la fecha 
             fechaConRecargo = fechaConRecargo.replace("/", "-");
+            
+            // Obtenemos la fecha actual
             LocalDate fechaActual = LocalDate.now();
+            
+            // Obtenemos la fechaConRecargo como LocalDate
             LocalDate fechaRecargo = LocalDate.parse(fechaConRecargo);
             
-            if (fechaRecargo.isBefore(fechaActual)) {
-                System.out.println("Fecha con recargo es menor a la fecha actual: " + fechaConRecargo);
-                return;
+            // Validamos si la fechaRecargo es menor a la fecha actual 
+            if(fechaRecargo.isBefore(fechaActual)) {
+            	System.out.println("Fecha con recargo es menor a la fecha actual: " + fechaConRecargo);
+            	return;
             }
             
+            
+            // Validamos si el credito del local es mayor al debito
             if (xcreditoLocal > xdebitoLocal) {
                 System.out.println("Credito suficiente para el envio del SMS");
             } else {
@@ -112,12 +127,23 @@ public class AppThreadService implements Runnable {
             System.out.println("xcreditoLocal " + xcreditoLocal);
             System.out.println("xdebitoLocal " + xdebitoLocal);
             
+            
+             // Recorremos el Array de celulares
             for (String numeroCelular : xNumerosCelularArr) {
+            	
+            	//Creamos una instancia de la clase EnvioMensajeService y la guardamos en obj1
             	EnvioMensajeService obj1 = new EnvioMensajeService();
+            	
+            	// A obj1 le pasamos el metodo EnviaSms de la clase EnvioMensajeService y se pasan como parametros numeroCelular, textoSMS
                 obj1.EnviaSms(numeroCelular, textoSMS);
-            }
+                
+                tblMailMarketingReporteService.ingresaReporte( xIdLocal, xIdMaximoReporte, xidCampaign, xIdPlantilla, numeroCelular, textoSMS, xIdDcto);
+                System.out.println("Registro guardado del local " + xIdLocal + " y El celular: " + numeroCelular);
+                }
+                
         } catch (Exception e) {
             e.printStackTrace();
         }
+        
     }
 }
