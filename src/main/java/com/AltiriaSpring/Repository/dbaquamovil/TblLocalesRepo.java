@@ -9,5 +9,5 @@ import com.AltiriaSpring.Model.dbaquamovil.TblLocales;
 	
 	@Repository
 	public interface TblLocalesRepo extends JpaRepository<TblLocales,Integer> {
-		Optional<TblLocales> findByIdLocal(Integer idLocal);
+		Optional<TblLocales> findByIdLocal(Integer idLocal); // Buscamos el idLocal
 	}

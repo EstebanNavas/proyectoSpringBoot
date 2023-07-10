@@ -17,10 +17,16 @@ public class TblLocalesService {
 	
 	// EXTRAER EL ID DEL LOCAL Y SU RAZÓN SOCIAL 
 	  public String consultarRazonSocial(int idLocal) {
+		  
+		   // Buscammos el Objeto TblLocales por su id
 	        Optional<TblLocales> localOptional = tblLocalesRepo.findById(idLocal);
-	        if (localOptional.isPresent()) {
-	            TblLocales local = localOptional.get();
-	            String razonSocial = local.getRazonSocial();
+	        
+	        if (localOptional.isPresent()) { // Si se encontró un registro de TblLocales con el ID proporcionado
+	        	
+	            TblLocales local = localOptional.get();// Obtenemos el objeto TblLocales
+	            
+	            String razonSocial = local.getRazonSocial(); // Obtenemos la razonSocial
+	          // Imprimimos información de consulta
 	            System.out.println("Query 1 - IDlocal: " + idLocal + "  razonSocial: " + razonSocial);
 	            return razonSocial;
 	        } else {

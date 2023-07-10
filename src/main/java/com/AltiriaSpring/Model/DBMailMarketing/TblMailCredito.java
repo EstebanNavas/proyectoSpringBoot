@@ -30,7 +30,9 @@ public class TblMailCredito {
 	
 	@Column(name = "DEBITO")
 	private Integer debito;
-
+	
+	
+	//GETTERS Y SETTERS
 	public Integer getIdLocal() {
 		return idLocal;
 	}

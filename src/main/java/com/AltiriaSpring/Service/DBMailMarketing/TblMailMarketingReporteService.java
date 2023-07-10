@@ -25,8 +25,11 @@ public class TblMailMarketingReporteService {
 	
 	//OBTENEMOS EL REPORTE MÁXIMO DE IDREPORTE
 	public Integer obtenerMaximoReporte() {
+		
+		//Buscamos el id de reporte maximo y se guarda en maxIdReporte
         Integer maxIdReporte = tblMailMarketingReporteRepo.findMaxIdReporte();
-        if (maxIdReporte != null) {
+        if (maxIdReporte != null) { // Validamos si maxIdReporte no es null
+        	
             System.out.println("Query 12 - maxIdReporte: " + maxIdReporte);
             return maxIdReporte;
         } else {
@@ -39,21 +42,23 @@ public class TblMailMarketingReporteService {
 			    String xnumerosCelular, String xTextoSMS, int xIdDcto) {
 		
     	String xSistema = "aquamovil"; 	
-									
-    	int xidRequerimiento = 1;						
+		int xidRequerimiento = 1;						
     	int xestado = 1;
     	String xexception = "";
     	String xemail = "";
     
-
+    	// Obtenemos la fecha y hora actuales
     	Timestamp xfechaHoraEvento = new Timestamp(System.currentTimeMillis()); 
 
-    	
+    	// Buscamos el objeto TblMailCampaign por idLocal
     	Optional<TblMailCampaign> localesOptional = tblMailCampaignRepo.findByIdLocal(xIdLocal);
-    	TblMailCampaign localesReporte = localesOptional.get();
+    	TblMailCampaign localesReporte = localesOptional.get(); // Obtenemos el objeto TblMailCampaign
     	
+    		// Creamos una instancia de  TblMailMarketingReporte
 		    TblMailMarketingReporte reporte = new TblMailMarketingReporte();
 		    
+		    
+		    // Asignamos los valores a los atributos del objeto reporte
 		    reporte.setLocalesReporte(localesReporte); //IdLocal
 		    reporte.setSistema(xSistema);
 		    reporte.setIdCampaign(xidCampaign);
@@ -69,6 +74,7 @@ public class TblMailMarketingReporteService {
 		    reporte.setEmail("");
 		    reporte.setCelular(xnumerosCelular);
 
+		    // Guardamos el objeto reporte en la tabla tblMailMarketingReporte
 		    tblMailMarketingReporteRepo.save(reporte);
 
 		    return true;

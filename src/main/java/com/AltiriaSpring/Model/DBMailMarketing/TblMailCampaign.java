@@ -135,14 +135,6 @@ public class TblMailCampaign {
 		this.sistema = sistema;
 	}
 	
-//	@Override
-//    public String toString() {
-//        return "TblLocales [idLocal= " + idLocal + ", textoSMS= " + textoSMS + "]";
-//    }
-	
-//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "campaña", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblMailMarketingReporte
-//	private List<TblMailMarketingReporte> campañas;
-//	
 	
 	
 }

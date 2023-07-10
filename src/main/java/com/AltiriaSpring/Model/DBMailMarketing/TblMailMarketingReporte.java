@@ -61,7 +61,8 @@ public class TblMailMarketingReporte {
 	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 	@JoinColumn(name = "IDLOCAL")
 	private TblMailCampaign localesReporte;
-
+	
+	//GETTERS Y SETTERS
 	public Integer getIdReporte() {
 		return idReporte;
 	}

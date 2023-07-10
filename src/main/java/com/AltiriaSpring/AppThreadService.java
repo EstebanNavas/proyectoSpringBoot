@@ -17,9 +17,21 @@ import com.AltiriaSpring.EnvioMensajeService;
 public class AppThreadService implements Runnable {
 	
 	// Se declaran las variables qué serán los parametros
-    private int xIdLocal  = 100;
-    private Integer xIdPeriodo = 202304;
-    private Integer xidCampaigns = 18;
+    private int xIdLocal  = 0;
+    private Integer xIdPeriodo = 0;
+    private Integer xidCampaigns = 0;
+    
+    public void setXIdLocal(int xIdLocal) {
+        this.xIdLocal = xIdLocal;
+    }
+
+    public void setXIdPeriodo(int xIdPeriodo) {
+        this.xIdPeriodo = xIdPeriodo;
+    }
+
+    public void setXidCampaigns(int xidCampaigns) {
+        this.xidCampaigns = xidCampaigns;
+    }
     
     
     //Se realiza la inyección de depencencias de los @service
@@ -137,8 +149,12 @@ public class AppThreadService implements Runnable {
             	// A obj1 le pasamos el metodo EnviaSms de la clase EnvioMensajeService y se pasan como parametros numeroCelular, textoSMS
                 obj1.EnviaSms(numeroCelular, textoSMS);
                 
+                //Guardamos un registro por cada sms enviado en la tabla tblMailMarketingReporte
                 tblMailMarketingReporteService.ingresaReporte( xIdLocal, xIdMaximoReporte, xidCampaign, xIdPlantilla, numeroCelular, textoSMS, xIdDcto);
                 System.out.println("Registro guardado del local " + xIdLocal + " y El celular: " + numeroCelular);
+                
+                // Ingrementamos el bedito del local por cada sms enviado en la tabla tblMailCredito
+                tblMailCreditoService.incrementarDebito(xIdLocal, xIdDcto);
                 }
                 
         } catch (Exception e) {
