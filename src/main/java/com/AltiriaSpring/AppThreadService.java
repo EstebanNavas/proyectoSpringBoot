@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailCampaignService;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailCreditoService;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailMarketingReporteService;
-import com.AltiriaSpring.Service.dbaquamovil.TblDctosPeriodoService;
+//import com.AltiriaSpring.Service.dbaquamovil.TblDctosPeriodoService;
 import com.AltiriaSpring.Service.dbaquamovil.TblLocalesService;
 import com.AltiriaSpring.Service.dbaquamovil.TblTercerosService;
 import com.AltiriaSpring.EnvioMensajeService;
@@ -17,25 +17,16 @@ import com.AltiriaSpring.EnvioMensajeService;
 public class AppThreadService implements Runnable {
 	
 	// Se declaran las variables qué serán los parametros
-    private int xIdLocal  = 100;
-    private Integer xIdPeriodo = 202304;
-    private Integer xidCampaigns = 18;
-    private Integer xidPlantilla = 11;
+    private int xIdLocal  = 0;
+    private Integer xidCampaigns = 0;
+
     
     public void setXIdLocal(int xIdLocal) {
         this.xIdLocal = xIdLocal;
     }
 
-    public void setXIdPeriodo(int xIdPeriodo) {
-        this.xIdPeriodo = xIdPeriodo;
-    }
-
     public void setXidCampaigns(int xidCampaigns) {
         this.xidCampaigns = xidCampaigns;
-    }
-    
-    public void setXidPlantilla(int xidPlantilla) {
-        this.xidPlantilla = xidPlantilla;
     }
     
     
@@ -43,8 +34,8 @@ public class AppThreadService implements Runnable {
     @Autowired
     private TblLocalesService tblLocalesService;
     
-    @Autowired
-    private TblDctosPeriodoService tblDctosPeriodoService;
+//    @Autowired
+//    private TblDctosPeriodoService tblDctosPeriodoService;
     
     @Autowired
     private TblTercerosService tblTercerosService;
@@ -61,12 +52,7 @@ public class AppThreadService implements Runnable {
     @Autowired
     private EnvioMensajeService envioMensajeService;
     
-//    public AppThreadService(Integer xIdLocal, Integer xIdPeriodo, Integer xidCampaigns) {
-//        this.xIdLocal = xIdLocal;
-//        this.xIdPeriodo = xIdPeriodo;
-//        this.xidCampaigns = xidCampaigns;
-//    }
-//    
+
     
    
     
@@ -88,17 +74,17 @@ public class AppThreadService implements Runnable {
         try {
         	
         	// Se obtienen los diferentes metodos de consulta para las bases de datos dbaquamovil y DBMailMarketing
-            textoSMS = tblMailCampaignService.consultarTextoSMS(xIdLocal, xidCampaigns,xidPlantilla);
-            xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns,xidPlantilla);
-            xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns,xidPlantilla);
-            xIdPlantilla = tblMailCampaignService.consultarIdPlantilla(xIdLocal, xidCampaigns,xidPlantilla);
+            textoSMS = tblMailCampaignService.consultarTextoSMS(xIdLocal, xidCampaigns);
+            xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns);
+            xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns);
+            xIdPlantilla = tblMailCampaignService.consultarIdPlantilla(xIdLocal, xidCampaigns);
             xcreditoLocal = tblMailCreditoService.consultaCreditoLocal(xIdLocal);
             xdebitoLocal = tblMailCreditoService.consultaDebitoLocal(xIdLocal);
             xIdDcto = tblMailCreditoService.consultaIdDcto(xIdLocal);
             xIdMaximoReporte = tblMailMarketingReporteService.obtenerMaximoReporte();
             razonSocial = tblLocalesService.consultarRazonSocial(xIdLocal);
-            nombrePeriodo = tblDctosPeriodoService.consultarNombrePeriodo(xIdLocal, xIdPeriodo);
-            fechaConRecargo = tblDctosPeriodoService.consultarFechaConRecargo(xIdLocal, xIdPeriodo);
+//            nombrePeriodo = tblDctosPeriodoService.consultarNombrePeriodo(xIdLocal);
+//            fechaConRecargo = tblDctosPeriodoService.consultarFechaConRecargo(xIdLocal);
             xNumerosCelularArr = tblTercerosService.consultarNumerosCelular(xIdLocal).toArray(new String[0]);
             
             // Se reemplazan las "xxx" del textoSMS dependiendo el xidCampaigns que le pasemos por parametro
@@ -124,19 +110,19 @@ public class AppThreadService implements Runnable {
             
             
             // Se cambian los "/" por "-" para que pueda tener un formato valido a la hora de verificar la fecha 
-            fechaConRecargo = fechaConRecargo.replace("/", "-");
-            
-            // Obtenemos la fecha actual
-            LocalDate fechaActual = LocalDate.now();
-            
-            // Obtenemos la fechaConRecargo como LocalDate
-            LocalDate fechaRecargo = LocalDate.parse(fechaConRecargo);
-            
-            // Validamos si la fechaRecargo es menor a la fecha actual 
-            if(fechaRecargo.isBefore(fechaActual)) {
-            	System.out.println("Fecha con recargo es menor a la fecha actual: " + fechaConRecargo);
-            	return;
-            }
+//            fechaConRecargo = fechaConRecargo.replace("/", "-");
+//            
+//            // Obtenemos la fecha actual
+//            LocalDate fechaActual = LocalDate.now();
+//            
+//            // Obtenemos la fechaConRecargo como LocalDate
+//            LocalDate fechaRecargo = LocalDate.parse(fechaConRecargo);
+//            
+//            // Validamos si la fechaRecargo es menor a la fecha actual 
+//            if(fechaRecargo.isBefore(fechaActual)) {
+//            	System.out.println("Fecha con recargo es menor a la fecha actual: " + fechaConRecargo);
+//            	return;
+//            }
             
             
             // Validamos si el credito del local es mayor al debito

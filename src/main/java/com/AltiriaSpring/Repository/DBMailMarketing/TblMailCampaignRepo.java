@@ -11,6 +11,6 @@ import com.AltiriaSpring.Model.dbaquamovil.TblLocales;
 
 @Repository
 public interface TblMailCampaignRepo extends JpaRepository<TblMailCampaign, Integer> {
-	Optional<TblMailCampaign> findByIdLocalAndIdCampaignAndIdPlantilla(Integer idLocal, Integer idCampaign, Integer idPlantilla);
+	Optional<TblMailCampaign> findByIdLocalAndIdCampaign(Integer idLocal, Integer idCampaign);
 	Optional<TblMailCampaign> findByIdLocal(Integer idLocal);
 }

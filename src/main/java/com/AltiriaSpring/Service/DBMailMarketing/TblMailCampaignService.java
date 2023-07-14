@@ -19,10 +19,10 @@ public class TblMailCampaignService {
 	private TblMailCampaignRepo tblMailCampaignRepo;
 	
 	// EXTRAEMOS EL MENSAJE DE TEXTO
-	public String consultarTextoSMS(int idLocal, int idCampaign, int idPlantilla) {
+	public String consultarTextoSMS(int idLocal, int idCampaign) {
 		
 		//Buscamos del TblMailCampaign el local
-        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaignAndIdPlantilla(idLocal, idCampaign, idPlantilla);
+        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
         if (localOptional.isPresent()) { //  Si se encontró un registro de TblLocales con el ID y idCampaign proporcionados
             TblMailCampaign local = localOptional.get(); // Obtenekos el objeto TblMailCampaign
             
@@ -37,10 +37,10 @@ public class TblMailCampaignService {
     }
 	
 	// EXTRAEMOS LA FECHA Y HORA QUE ESTÁ PROGRAMADO EL ENVIO DEL SMS
-	public String consultarFechayHora(int idLocal, int idCampaign, int idPlantilla) {
+	public String consultarFechayHora(int idLocal, int idCampaign) {
 		
 		//Buscamos del TblMailCampaign el local
-        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaignAndIdPlantilla(idLocal, idCampaign, idPlantilla);
+        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
         if (localOptional.isPresent()) { //  Si se encontró un registro de TblLocales con el ID y idCampaign proporcionados
             TblMailCampaign local = localOptional.get(); // Obtenekos el objeto TblMailCampaign
             Date FechaYhora = local.getFechaYhora(); // Obtenemos la fecha y hora en un objeto Date
@@ -67,10 +67,10 @@ public class TblMailCampaignService {
     }
 	
 	// EXTRAEMOS IDCAMPAÑA
-	public Integer consultarIdCampaign(int idLocal, int idCampaign, int idPlantilla) {
+	public Integer consultarIdCampaign(int idLocal, int idCampaign) {
 		
 		//Buscamos del TblMailCampaign el local
-        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaignAndIdPlantilla(idLocal, idCampaign, idPlantilla);
+        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
         if (localOptional.isPresent()) {//  Si se encontró un registro de TblLocales con el ID y idCampaign proporcionados
             TblMailCampaign local = localOptional.get();// Obtenekos el objeto TblMailCampaign
             Integer idCampaña = local.getIdCampaign(); // obtenemos el idCampaing
@@ -85,10 +85,10 @@ public class TblMailCampaignService {
 	
 	
 	//EXTRAEMOS EL ID DE PLANTILLA
-	public Integer consultarIdPlantilla(int idLocal, int idCampaign, int idPlantilla) {
+	public Integer consultarIdPlantilla(int idLocal, int idCampaign) {
 		
 		//Buscamos del TblMailCampaign el local
-        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaignAndIdPlantilla(idLocal, idCampaign, idPlantilla);
+        Optional<TblMailCampaign> localOptional = tblMailCampaignRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
         if (localOptional.isPresent()) { //  Si se encontró un registro de TblLocales con el ID y idCampaign proporcionados
             TblMailCampaign local = localOptional.get(); // Obtenekos el objeto TblMailCampaign
             Integer idplantilla = local.getIdPlantilla(); //obtenemos el idPlantilla
