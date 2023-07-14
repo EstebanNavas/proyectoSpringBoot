@@ -11,6 +11,6 @@ import com.AltiriaSpring.Model.DBMailMarketing.TblMailCredito;
 
 @Repository
 public interface TblMailCreditoRepo extends JpaRepository<TblMailCredito, Integer> {
-	Optional<TblMailCredito> findByIdLocalAndIdCampaign(Integer idLocal, Integer idCampaign);
+	Optional<TblMailCredito> findByIdLocal(Integer idLocal);
 	List<TblMailCredito> findByIdLocalAndIdDcto(int idLocal, int idDcto);
 }

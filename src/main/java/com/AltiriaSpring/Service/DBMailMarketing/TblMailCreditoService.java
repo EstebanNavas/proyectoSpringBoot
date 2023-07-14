@@ -17,10 +17,10 @@ public class TblMailCreditoService {
 	private TblMailCreditoRepo tblMailCreditoRepo;
 	
 	//CONSULTA CREDITO LOCAL
-	public Integer consultaCreditoLocal(int idLocal, int idCampaign) {
+	public Integer consultaCreditoLocal(int idLocal) {
 		
 		//Buscamos de TblMailCredito el local
-        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
+        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocal(idLocal);
         if (localOptional.isPresent()) {//  Si se encontró un registro de TblMailCredito con el ID y idCampaign proporcionados
         	TblMailCredito local = localOptional.get();// Obtenekos el objeto TblMailCredito
             Integer credito = local.getCredito(); // Obtenemos el credito del local
@@ -28,16 +28,16 @@ public class TblMailCreditoService {
             System.out.println("Query 9 - IDlocal: " + idLocal + "  credito: " + credito);
             return credito;
         } else {
-            System.out.println("No se encontró ningún local con el idLocal: " + idLocal + " y idCampaign: " + idCampaign);
+            System.out.println("No se encontró ningún local con el idLocal: " + idLocal );
             return 0 ;
         }
     }
 	
 	// CONSULTA DEBITO LOCAL 
-	public Integer consultaDebitoLocal(int idLocal, int idCampaign) {
+	public Integer consultaDebitoLocal(int idLocal) {
 		
 		//Buscamos de TblMailCredito el local
-        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
+        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocal(idLocal);
         if (localOptional.isPresent()) {//  Si se encontró un registro de TblMailCredito con el ID y idCampaign proporcionados
         	TblMailCredito local = localOptional.get();// Obtenemos el objeto TblMailCredito
             Integer debito = local.getDebito();// Obtenekos el debito del local
@@ -45,16 +45,16 @@ public class TblMailCreditoService {
             System.out.println("Query 10 - IDlocal: " + idLocal + "  debito: " + debito);
             return debito;
         } else {
-            System.out.println("No se encontró ningún local con el idLocal: " + idLocal + " y idCampaign: " + idCampaign);
+            System.out.println("No se encontró ningún local con el idLocal: " + idLocal);
             return 0 ;
         }
     }
 	
 	// CONSULTA IdDcto LOCAL
-	public Integer consultaIdDcto(int idLocal, int idCampaign) {
+	public Integer consultaIdDcto(int idLocal) {
 		
 		//Buscamos de TblMailCredito el local
-        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
+        Optional<TblMailCredito> localOptional = tblMailCreditoRepo.findByIdLocal(idLocal);
         if (localOptional.isPresent()) {//  Si se encontró un registro de TblMailCredito con el ID y idCampaign proporcionados
         	TblMailCredito local = localOptional.get();// Obtenemos el objeto TblMailCredito
             Integer idDctoLocal = local.getIdDcto(); // obtenemos el idDcto
@@ -62,7 +62,7 @@ public class TblMailCreditoService {
             System.out.println("Query 11 - IDlocal: " + idLocal + "  idDctoLocal: " + idDctoLocal);
             return idDctoLocal;
         } else {
-            System.out.println("No se encontró ningún local con el idLocal: " + idLocal + " y idCampaign: " + idCampaign);
+            System.out.println("No se encontró ningún local con el idLocal: " + idLocal);
             return 0 ;
         }
     }

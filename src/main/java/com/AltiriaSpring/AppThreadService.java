@@ -19,8 +19,8 @@ public class AppThreadService implements Runnable {
 	// Se declaran las variables qué serán los parametros
     private int xIdLocal  = 100;
     private Integer xIdPeriodo = 202304;
-    private Integer xidCampaigns = 206;
-    private Integer xidPlantilla = 13;
+    private Integer xidCampaigns = 18;
+    private Integer xidPlantilla = 11;
     
     public void setXIdLocal(int xIdLocal) {
         this.xIdLocal = xIdLocal;
@@ -92,9 +92,9 @@ public class AppThreadService implements Runnable {
             xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns,xidPlantilla);
             xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns,xidPlantilla);
             xIdPlantilla = tblMailCampaignService.consultarIdPlantilla(xIdLocal, xidCampaigns,xidPlantilla);
-            xcreditoLocal = tblMailCreditoService.consultaCreditoLocal(xIdLocal, xidCampaigns);
-            xdebitoLocal = tblMailCreditoService.consultaDebitoLocal(xIdLocal, xidCampaigns);
-            xIdDcto = tblMailCreditoService.consultaIdDcto(xIdLocal, xidCampaigns);
+            xcreditoLocal = tblMailCreditoService.consultaCreditoLocal(xIdLocal);
+            xdebitoLocal = tblMailCreditoService.consultaDebitoLocal(xIdLocal);
+            xIdDcto = tblMailCreditoService.consultaIdDcto(xIdLocal);
             xIdMaximoReporte = tblMailMarketingReporteService.obtenerMaximoReporte();
             razonSocial = tblLocalesService.consultarRazonSocial(xIdLocal);
             nombrePeriodo = tblDctosPeriodoService.consultarNombrePeriodo(xIdLocal, xIdPeriodo);
@@ -102,20 +102,26 @@ public class AppThreadService implements Runnable {
             xNumerosCelularArr = tblTercerosService.consultarNumerosCelular(xIdLocal).toArray(new String[0]);
             
             // Se reemplazan las "xxx" del textoSMS dependiendo el xidCampaigns que le pasemos por parametro
-            switch (xidCampaigns) {
-                case 18:
-                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
-                            .replaceFirst("xxx", nombrePeriodo)
-                            .replaceFirst("xxx", fechaConRecargo);
-                    break;
-                case 206:
-                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
-                            .replaceFirst("xxx", xFechayHora);
-                    break;
-                default:
-                    System.out.println("El idCampaign no existe");
-                    return;
-            }
+//            switch (xidCampaigns) {
+//                case 18:
+//                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
+//                            .replaceFirst("xxx", nombrePeriodo)
+//                            .replaceFirst("xxx", fechaConRecargo);
+//                    break;
+//                case 206:
+//                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
+//                            .replaceFirst("xxx", xFechayHora);
+//                    break;
+//                default:
+//                    System.out.println("El idCampaign no existe");
+//                    return;
+//            }
+            
+            // Se guarda el saludo del local en la variable saludo
+            String saludo = "Saludos " + razonSocial + " ";
+            // Se concatena el saludo con textoSMS
+            textoSMS = saludo + textoSMS;
+            
             
             // Se cambian los "/" por "-" para que pueda tener un formato valido a la hora de verificar la fecha 
             fechaConRecargo = fechaConRecargo.replace("/", "-");
