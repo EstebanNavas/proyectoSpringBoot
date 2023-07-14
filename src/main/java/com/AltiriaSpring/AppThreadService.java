@@ -17,9 +17,10 @@ import com.AltiriaSpring.EnvioMensajeService;
 public class AppThreadService implements Runnable {
 	
 	// Se declaran las variables qué serán los parametros
-    private int xIdLocal  = 0;
-    private Integer xIdPeriodo = 0;
-    private Integer xidCampaigns = 0;
+    private int xIdLocal  = 100;
+    private Integer xIdPeriodo = 202304;
+    private Integer xidCampaigns = 206;
+    private Integer xidPlantilla = 13;
     
     public void setXIdLocal(int xIdLocal) {
         this.xIdLocal = xIdLocal;
@@ -31,6 +32,10 @@ public class AppThreadService implements Runnable {
 
     public void setXidCampaigns(int xidCampaigns) {
         this.xidCampaigns = xidCampaigns;
+    }
+    
+    public void setXidPlantilla(int xidPlantilla) {
+        this.xidPlantilla = xidPlantilla;
     }
     
     
@@ -83,10 +88,10 @@ public class AppThreadService implements Runnable {
         try {
         	
         	// Se obtienen los diferentes metodos de consulta para las bases de datos dbaquamovil y DBMailMarketing
-            textoSMS = tblMailCampaignService.consultarTextoSMS(xIdLocal, xidCampaigns);
-            xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns);
-            xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns);
-            xIdPlantilla = tblMailCampaignService.consultarIdPlantilla(xIdLocal, xidCampaigns);
+            textoSMS = tblMailCampaignService.consultarTextoSMS(xIdLocal, xidCampaigns,xidPlantilla);
+            xFechayHora = tblMailCampaignService.consultarFechayHora(xIdLocal, xidCampaigns,xidPlantilla);
+            xidCampaign = tblMailCampaignService.consultarIdCampaign(xIdLocal, xidCampaigns,xidPlantilla);
+            xIdPlantilla = tblMailCampaignService.consultarIdPlantilla(xIdLocal, xidCampaigns,xidPlantilla);
             xcreditoLocal = tblMailCreditoService.consultaCreditoLocal(xIdLocal, xidCampaigns);
             xdebitoLocal = tblMailCreditoService.consultaDebitoLocal(xIdLocal, xidCampaigns);
             xIdDcto = tblMailCreditoService.consultaIdDcto(xIdLocal, xidCampaigns);
@@ -103,7 +108,7 @@ public class AppThreadService implements Runnable {
                             .replaceFirst("xxx", nombrePeriodo)
                             .replaceFirst("xxx", fechaConRecargo);
                     break;
-                case 200:
+                case 206:
                     textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
                             .replaceFirst("xxx", xFechayHora);
                     break;

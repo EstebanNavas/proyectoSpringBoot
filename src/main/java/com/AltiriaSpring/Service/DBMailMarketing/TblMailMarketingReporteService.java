@@ -38,6 +38,8 @@ public class TblMailMarketingReporteService {
         }
     }
 	
+	
+	
 		public boolean ingresaReporte(int xIdLocal, int xIdMaximoReporte, int xidCampaign, int xIdPlantilla,
 			    String xnumerosCelular, String xTextoSMS, int xIdDcto) {
 		

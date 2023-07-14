@@ -34,7 +34,7 @@ public class TblMailCampaign {
 	@Column(name = "IDPLANTILLA")
 	private Integer idPlantilla;
 	
-	@Column(name = "\"fecha/hora\"")
+	@Column(name = "fechaHora")
 	private Date fechaYhora;
 	
 	@Column(name = "TEXTOMENSAJE", columnDefinition = "nvarchar")
