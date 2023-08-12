@@ -13,6 +13,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import java.util.HashMap;
 import java.util.Map;
 
+
 import javax.sql.DataSource;
 
 
@@ -26,6 +27,8 @@ public class DBMailMarketingConfig {
 	@Autowired
 	private Environment env;
 	
+
+	
 	@Bean(name = "DataSource")
 	public DataSource DBMailMarketingDatasource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -36,6 +39,7 @@ public class DBMailMarketingConfig {
 		
 		return dataSource;
 	}
+	
 	
 	@Bean(name = "DBMailMarketingEntityManagerFactory")
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -64,4 +68,5 @@ public class DBMailMarketingConfig {
 		
 		return transactionManager;
 	}
+	
 }

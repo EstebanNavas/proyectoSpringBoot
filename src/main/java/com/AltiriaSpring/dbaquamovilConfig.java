@@ -1,5 +1,6 @@
 package com.AltiriaSpring;
 
+
 import javax.sql.DataSource;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -26,6 +27,8 @@ public class dbaquamovilConfig {
 	
 	@Autowired
 	private Environment env;
+	
+
 	
 	@Bean(name = "dbaquamovilDataSource")
 	public DataSource dbaquamovilDatasource() {
@@ -65,5 +68,7 @@ public class dbaquamovilConfig {
 		
 		return transactionManager;
 	}
+	
+
 
 }

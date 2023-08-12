@@ -21,17 +21,7 @@ import java.util.regex.Pattern;
 @Service
 public class EnvioMensajeService {
 	
-	//Declaramos las variiables de instancia 
-//	String numeroCel = "3217048602";
-//	String textoSms = "texto prueba";
 
-	
-	// En el constructor de la clase Main inicializamos las variables de instancia numeroCel y textoSms
-//	public EnvioMensajeService(String numeroCel, String textoSms){  
-//			this.numeroCel = numeroCel; // Utilizamos la palabra clave "this"  para hacer referencia a las variables de instancia de la clase
-//			this.textoSms=textoSms;
-//	   } 	 
-//	
 	public  void EnviaSms(String xNumeroCelular, String xTextoSMS) {
 		
 		// Se construye el mensaje JSON
@@ -119,7 +109,7 @@ public class EnvioMensajeService {
 		    	String numero = xNumeroCelular; // En la variable numero guardamos cada número del array para validar posteriormente con el if.
 		        String regex = "^[0-9]{12}$";  // en la variable regex le especificamos el formato que debe de tener.
 		        
-		        // CONSULTAR EL MAXIMOREPORTE
+		       
 		        
 		        // Validamos si el formato de cada número cumple o no con el requisito de (12 numeros continuos sin letras).
 		        if (!Pattern.matches(regex, numero)) {
