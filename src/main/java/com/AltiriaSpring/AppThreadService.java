@@ -1,10 +1,12 @@
 package com.AltiriaSpring;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.AltiriaSpring.Service.DBMailMarketing.TblMailCampaignClienteService;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailCampaignService;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailCreditoService;
 import com.AltiriaSpring.Service.DBMailMarketing.TblMailMarketingReporteService;
@@ -52,13 +54,17 @@ public class AppThreadService implements Runnable {
     @Autowired
     private EnvioMensajeService envioMensajeService;
     
+    @Autowired
+    TblMailCampaignClienteService tblMailCampaignClienteService;
 
     
    
     
     @Override
     public void run() {
-        String[] xNumerosCelularArr = null;
+        
+        List<String> xIdClientes = null;
+        List<String> xTelefonoCelular = null;
         String razonSocial = "";
         String nombrePeriodo = "";
         String fechaConRecargo = "";
@@ -85,7 +91,12 @@ public class AppThreadService implements Runnable {
             razonSocial = tblLocalesService.consultarRazonSocial(xIdLocal);
 //            nombrePeriodo = tblDctosPeriodoService.consultarNombrePeriodo(xIdLocal);
 //            fechaConRecargo = tblDctosPeriodoService.consultarFechaConRecargo(xIdLocal);
-            xNumerosCelularArr = tblTercerosService.consultarNumerosCelular(xIdLocal).toArray(new String[0]);
+            xIdClientes = tblMailCampaignClienteService.obtenerIdClientes(xIdLocal, xidCampaigns);
+            
+            xTelefonoCelular =tblTercerosService.obtenerNumerosCelular(xIdClientes, xIdLocal);
+            
+          
+            
             
             // Se reemplazan las "xxx" del textoSMS dependiendo el xidCampaigns que le pasemos por parametro
 //            switch (xidCampaigns) {
@@ -138,7 +149,7 @@ public class AppThreadService implements Runnable {
             
             
              // Recorremos el Array de celulares
-            for (String numeroCelular : xNumerosCelularArr) {
+            for (String numeroCelular : xTelefonoCelular) {
             	
             	//Creamos una instancia de la clase EnvioMensajeService y la guardamos en obj1
             	EnvioMensajeService obj1 = new EnvioMensajeService();

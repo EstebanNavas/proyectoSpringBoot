@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.AltiriaSpring.Model.dbaquamovil.TblLocales;
@@ -23,42 +24,30 @@ public class TblTercerosService {
 	private TblLocalesRepo tblLocalesRepo;
 
 	// EXTRAER NÚMEROS DE TELEFONO CELULAR
-	public List<String> consultarNumerosCelular(int idLocal) {
+	
+	public List <String> obtenerNumerosCelular (@Param("ids") List<String> ids, @Param("idLocal") int idLocal){
 		
-		// Buscamos el objeto TblLocales por id
-		Optional<TblLocales> localesOptional = tblLocalesRepo.findById(idLocal);
+		// Obtenemos la lista de los numeros de celular 
+		List <String> numerosCelular = tblTercerosRepo.findByIdLocal(ids, idLocal);
 		
-		if (localesOptional.isPresent()) { // Si se encontró un registro de TblLocales con el ID proporcionado
-			TblLocales locales = localesOptional.get();// Obtenemos el objeto TblLocales
+		// se crea una nueva lista para guardar los numeroCelularConPrefijo
+		List<String> telefonosCelular = new ArrayList<>();
+		
+		for(String celular : numerosCelular) {// Recorremos la lista de celulares 
 			
-			//Obtenemos los registros de la tabla TblTerceros que tengan el idLocal especificado
-			List<TblTerceros> celulares = tblTercerosRepo.findByLocalesCelular(locales);
-			
-			// Se crea una lista para almanecar los registros obtenidos
-			List<String> telefonosCelular = new ArrayList<>();
-			
-			for (TblTerceros local : celulares) { // Recorremos la lista de celulares 
+			if(celular.length() == 10) { // Validamos si el celular tiene 10 digitos
+				System.out.println("El celular del idCliente es :" + celular);
 				
-				if (local.getTelefonoCelular().length() == 10) { // Validamos que los números celular tengas una longitud de 10 caracteres
-					String telefonoCelular = local.getTelefonoCelular(); // Buscamos el telegonoCelular
-					
-					String numeroCelularConPrefijo = "57" + telefonoCelular; // Agregamos el prefijo 57 a cada número
-					telefonosCelular.add(String.valueOf(numeroCelularConPrefijo)); // Se agregan los numeroCelularConPrefijo a la lista telefonosCelular
-				}
-
+				String numeroCelularConPrefijo = "57" + celular; // Agregamos el prefijo 57 a cada número
+				
+				System.out.println("El celular del idCliente con prefijo es :" + numeroCelularConPrefijo);
+				telefonosCelular.add(String.valueOf(numeroCelularConPrefijo)); // Se agregan los numeroCelularConPrefijo a la lista telefonosCelular
 			}
 			
-			// Verificamos si se encontraron números celular 
-			if (!telefonosCelular.isEmpty()) {
-				System.out.println("Query 4 - IDlocal: " + idLocal + "  telefonosCelular: " + telefonosCelular);
-				return telefonosCelular;
-			} else {
-				System.out.println("No se encontró ningún número celular para el local con el idLocal: " + idLocal);
-				return Collections.emptyList();
-			}
-		} else {
-			System.out.println("No se encontró el local con el idLocal: " + idLocal);
-			return Collections.emptyList();
+			
+			
 		}
+		
+		return telefonosCelular;
 	}
 }

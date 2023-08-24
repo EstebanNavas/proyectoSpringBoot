@@ -27,6 +27,12 @@ public class AltiriaSpringBootApplication {
         
         int xIdLocal = Integer.parseInt(args[0]);
         int xidCampaigns = Integer.parseInt(args[1]);
+        
+        
+//        int xIdLocal = 100;
+//        int xidCampaigns = 231;
+        
+        
 
         // Ejecutamos la aplicación Spring y obtenemos el contexto
         ConfigurableApplicationContext ctx = SpringApplication.run(AltiriaSpringBootApplication.class, args);

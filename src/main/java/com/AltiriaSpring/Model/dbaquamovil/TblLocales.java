@@ -28,8 +28,8 @@ public class TblLocales {
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "locales", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblDctosPeriodo
 	private List<TblDctosPeriodo> periodos;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localesCelular", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblTerceros
-	private List<TblTerceros> numerosCelular;
+//	@OneToMany(fetch = FetchType.LAZY, mappedBy = "localesCelular", cascade = CascadeType.ALL)// Se establece relacion uno a muchos con la tabla tblTerceros
+//	private List<TblTerceros> numerosCelular;
 
 	
 	//GETTER Y SETTERS
