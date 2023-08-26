@@ -93,7 +93,10 @@ public class AppThreadService implements Runnable {
 //            fechaConRecargo = tblDctosPeriodoService.consultarFechaConRecargo(xIdLocal);
             xIdClientes = tblMailCampaignClienteService.obtenerIdClientes(xIdLocal, xidCampaigns);
             
-            xTelefonoCelular =tblTercerosService.obtenerNumerosCelular(xIdClientes, xIdLocal);
+            xTelefonoCelular =tblTercerosService.obtenerNumerosCelular(xIdLocal, xidCampaigns);
+            
+   
+           
             
           
             

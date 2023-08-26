@@ -25,10 +25,10 @@ public class TblTercerosService {
 
 	// EXTRAER NÚMEROS DE TELEFONO CELULAR
 	
-	public List <String> obtenerNumerosCelular (@Param("ids") List<String> ids, @Param("idLocal") int idLocal){
+	public List <String> obtenerNumerosCelular (int idLocal, int idCampaign){
 		
 		// Obtenemos la lista de los numeros de celular 
-		List <String> numerosCelular = tblTercerosRepo.findByIdLocal(ids, idLocal);
+		List <String> numerosCelular = tblTercerosRepo.findByIdLocalAndIdCampaignNative(idLocal, idCampaign);
 		
 		// se crea una nueva lista para guardar los numeroCelularConPrefijo
 		List<String> telefonosCelular = new ArrayList<>();
@@ -50,4 +50,66 @@ public class TblTercerosService {
 		
 		return telefonosCelular;
 	}
+	
+	
+//	public List <String> obtenerTelefonosCelular(@Param("idLocal") int idLocal, @Param("idCampaign") int idCampaign){
+//		
+//		List <String> telefonosCelular = tblTercerosRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
+//		
+//		for(String celular : telefonosCelular) {// Recorremos la lista de celulares 
+//			
+//		
+//				System.out.println("El celular del idCliente desde collate es :" + celular);
+//
+//		}
+//		
+//		return telefonosCelular;
+//	}
+	
+	
+//	public List <String> obtenerTelefonosCelular(int idLocal, int idCampaign){
+//		
+//		List <String> telefonosCelular = tblTercerosRepo.findByIdLocalAndIdCampaignNative(idLocal, idCampaign);
+//		
+//		
+//		
+//		for(String celular : telefonosCelular) {// Recorremos la lista de celulares 
+//			
+//		
+//				System.out.println("El celular del idCliente desde collate es :" + celular);
+//
+//		}
+//		
+//		return telefonosCelular;
+//	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
