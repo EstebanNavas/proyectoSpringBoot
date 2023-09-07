@@ -114,7 +114,7 @@ public class AppThreadService implements Runnable {
             System.out.println("xcreditoLocal " + xcreditoLocal);
             System.out.println("xdebitoLocal " + xdebitoLocal);
             
-            System.out.println("Contenido de xcelularIdClienteMap antes del bucle: " + xcelularIdClienteMap);
+ 
             
              // Recorremos el Array de celulares
             for (String numeroCelular : xTelefonoCelular) {
@@ -122,7 +122,6 @@ public class AppThreadService implements Runnable {
             	// Obtenemos el ID del cliente correspondiente al número de celular actual
                 String idCliente = xcelularIdClienteMap.get(numeroCelular);
             	
-                System.out.println("Contenido de xcelularIdClienteMap: " + xcelularIdClienteMap);
                 
             	//Creamos una instancia de la clase EnvioMensajeService y la guardamos en obj1
             	EnvioMensajeService obj1 = new EnvioMensajeService();
