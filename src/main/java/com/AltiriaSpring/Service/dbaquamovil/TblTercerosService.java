@@ -2,8 +2,10 @@ package com.AltiriaSpring.Service.dbaquamovil;
 
 import java.util.Optional;
 import java.util.List;
+import java.util.Map;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -51,37 +53,41 @@ public class TblTercerosService {
 		return telefonosCelular;
 	}
 	
+
+	public Map<String, String> obtenerNumerosCelularYAndIdCliente(int idLocal, int idCampaign){
+		
+		// Obtenemos la lista de los numeros de celular 
+			List <TblTerceros> numerosCelular = tblTercerosRepo.obtenerTelefonosCelularAndIdClientes(idLocal, idCampaign);
+			
+			Map<String, String> celularIdClienteMap = new HashMap<>();
+			
+			for(TblTerceros registro : numerosCelular) {// Recorremos la lista de celulares 
+				String idCliente = registro.getIdCliente();
+		        String telefonoCelular = registro.getTelefonoCelular();
+		        
+		        if(telefonoCelular.length() == 10) {
+		        	
+		        	
+		        	String numeroCelularConPrefijo = "57" + telefonoCelular; // Agregamos el prefijo 57 a cada número
+		        	
+		            // Llenamos el mapa con los valores de numeroCelular e idCliente
+			        celularIdClienteMap.put(numeroCelularConPrefijo, idCliente);
+			        
+			        
+					
+					System.out.println("idCliente en obtenerNumerosCelularYAndIdCliente " + idCliente);
+					System.out.println("telefonosCelular en obtenerNumerosCelularYAndIdCliente " + numeroCelularConPrefijo);
+		        	
+		        }
 	
-//	public List <String> obtenerTelefonosCelular(@Param("idLocal") int idLocal, @Param("idCampaign") int idCampaign){
-//		
-//		List <String> telefonosCelular = tblTercerosRepo.findByIdLocalAndIdCampaign(idLocal, idCampaign);
-//		
-//		for(String celular : telefonosCelular) {// Recorremos la lista de celulares 
-//			
-//		
-//				System.out.println("El celular del idCliente desde collate es :" + celular);
-//
-//		}
-//		
-//		return telefonosCelular;
-//	}
-	
-	
-//	public List <String> obtenerTelefonosCelular(int idLocal, int idCampaign){
-//		
-//		List <String> telefonosCelular = tblTercerosRepo.findByIdLocalAndIdCampaignNative(idLocal, idCampaign);
-//		
-//		
-//		
-//		for(String celular : telefonosCelular) {// Recorremos la lista de celulares 
-//			
-//		
-//				System.out.println("El celular del idCliente desde collate es :" + celular);
-//
-//		}
-//		
-//		return telefonosCelular;
-//	}
+		        
+		    
+				
+				
+			}
+			
+			return celularIdClienteMap;
+	}
 	
 }
 

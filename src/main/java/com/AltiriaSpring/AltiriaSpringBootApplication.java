@@ -20,17 +20,17 @@ public class AltiriaSpringBootApplication {
 
     public static void main(String[] args) {
         // Verificamos si se proporcionan los argumentos esperados
-        if (args.length != 2) {
-            System.out.println("Se requieren 2 argumentos: xIdLocal, xidCampaigns");
-            return;
-        }
+//        if (args.length != 2) {
+//            System.out.println("Se requieren 2 argumentos: xIdLocal, xidCampaigns");
+//            return;
+//        }
+//        
+//        int xIdLocal = Integer.parseInt(args[0]);
+//        int xidCampaigns = Integer.parseInt(args[1]);
         
-        int xIdLocal = Integer.parseInt(args[0]);
-        int xidCampaigns = Integer.parseInt(args[1]);
         
-        
-//        int xIdLocal = 100;
-//        int xidCampaigns = 231;
+        int xIdLocal = 100;
+        int xidCampaigns = 243;
         
         
 

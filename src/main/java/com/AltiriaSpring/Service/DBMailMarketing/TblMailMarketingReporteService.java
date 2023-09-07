@@ -1,5 +1,6 @@
 package com.AltiriaSpring.Service.DBMailMarketing;
 
+import java.util.List;
 import java.util.Optional;
 import java.sql.Timestamp;
 
@@ -41,22 +42,22 @@ public class TblMailMarketingReporteService {
 	
 	
 		public boolean ingresaReporte(int xIdLocal, int xIdMaximoReporte, int xidCampaign, int xIdPlantilla,
-			    String xnumerosCelular, String xTextoSMS, int xIdDcto) {
+			    String xnumerosCelular, String xTextoSMS, int xIdDcto, String idCliente) {
 		
-    	String xSistema = "aquamovil"; 	
-		int xidRequerimiento = 1;						
-    	int xestado = 1;
-    	String xexception = "";
-    	String xemail = "";
-    
-    	// Obtenemos la fecha y hora actuales
-    	Timestamp xfechaHoraEvento = new Timestamp(System.currentTimeMillis()); 
+		 	String xSistema = "aquamovil"; 	
+			int xidRequerimiento = 1;						
+	    	int xestado = 1;
+	    	String xexception = "";
+	    	String xemail = "";
+	    
+	    	// Obtenemos la fecha y hora actuales
+	    	Timestamp xfechaHoraEvento = new Timestamp(System.currentTimeMillis()); 
 
-    	// Buscamos el objeto TblMailCampaign por idLocal
-    	Optional<TblMailCampaign> localesOptional = tblMailCampaignRepo.findByIdLocal(xIdLocal);
-    	TblMailCampaign localesReporte = localesOptional.get(); // Obtenemos el objeto TblMailCampaign
-    	
-    		// Creamos una instancia de  TblMailMarketingReporte
+	    	// Buscamos el objeto TblMailCampaign por idLocal
+	    	Optional<TblMailCampaign> localesOptional = tblMailCampaignRepo.findByIdLocal(xIdLocal);
+	    	TblMailCampaign localesReporte = localesOptional.get(); // Obtenemos el objeto TblMailCampaign
+	    	
+			// Creamos una instancia de  TblMailMarketingReporte
 		    TblMailMarketingReporte reporte = new TblMailMarketingReporte();
 		    
 		    
@@ -75,9 +76,23 @@ public class TblMailMarketingReporteService {
 		    reporte.setException("");
 		    reporte.setEmail("");
 		    reporte.setCelular(xnumerosCelular);
-
-		    // Guardamos el objeto reporte en la tabla tblMailMarketingReporte
+		    reporte.setIdCliente(idCliente);
+		    
+		 // Guardamos el objeto reporte en la tabla tblMailMarketingReporte
 		    tblMailMarketingReporteRepo.save(reporte);
+		    
+		    // interamos entre cada idCliente de la lista xIdClientes para guardar cada idCliente en el reporte 
+//		    for(String idCliente : xIdClientes) {
+//		    
+//		    	
+//		    	reporte.setIdCliente(idCliente);
+//		    	
+//		    	System.out.println("setIdCliente fue :" + idCliente);
+//		    	// Guardamos el objeto reporte en la tabla tblMailMarketingReporte
+//			    tblMailMarketingReporteRepo.save(reporte);
+//		    }
+//		    
+		    
 
 		    return true;
 		}

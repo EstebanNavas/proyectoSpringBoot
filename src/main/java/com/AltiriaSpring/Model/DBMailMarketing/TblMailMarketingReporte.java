@@ -58,11 +58,26 @@ public class TblMailMarketingReporte {
 	@Column(name = "CELULAR", columnDefinition = "nvarchar")
 	private String celular;
 	
+	@Column(name = "idCliente", columnDefinition = "nvarchar")
+	private String idCliente;
+	
+
+
 	@ManyToOne(fetch = FetchType.LAZY) // Se establece la relacion de muchos a uno con la tabla tblMailCampaign
 	@JoinColumn(name = "IDLOCAL")
 	private TblMailCampaign localesReporte;
 	
 	//GETTERS Y SETTERS
+	
+	public String getIdCliente() {
+		return idCliente;
+	}
+
+	public void setIdCliente(String idCliente) {
+		this.idCliente = idCliente;
+	}
+	
+	
 	public Integer getIdReporte() {
 		return idReporte;
 	}

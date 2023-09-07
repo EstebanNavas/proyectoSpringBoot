@@ -2,6 +2,7 @@ package com.AltiriaSpring;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import com.AltiriaSpring.Service.DBMailMarketing.TblMailMarketingReporteService;
 import com.AltiriaSpring.Service.dbaquamovil.TblLocalesService;
 import com.AltiriaSpring.Service.dbaquamovil.TblTercerosService;
 import com.AltiriaSpring.EnvioMensajeService;
+import com.AltiriaSpring.Model.dbaquamovil.TblTerceros;
 
 @Service
 public class AppThreadService implements Runnable {
@@ -65,6 +67,7 @@ public class AppThreadService implements Runnable {
         
         List<String> xIdClientes = null;
         List<String> xTelefonoCelular = null;
+        Map<String, String> xcelularIdClienteMap  = null;
         String razonSocial = "";
         String nombrePeriodo = "";
         String fechaConRecargo = "";
@@ -94,49 +97,10 @@ public class AppThreadService implements Runnable {
             xIdClientes = tblMailCampaignClienteService.obtenerIdClientes(xIdLocal, xidCampaigns);
             
             xTelefonoCelular =tblTercerosService.obtenerNumerosCelular(xIdLocal, xidCampaigns);
+            xcelularIdClienteMap =tblTercerosService.obtenerNumerosCelularYAndIdCliente(xIdLocal, xidCampaigns);
             
    
-           
-            
-          
-            
-            
-            // Se reemplazan las "xxx" del textoSMS dependiendo el xidCampaigns que le pasemos por parametro
-//            switch (xidCampaigns) {
-//                case 18:
-//                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
-//                            .replaceFirst("xxx", nombrePeriodo)
-//                            .replaceFirst("xxx", fechaConRecargo);
-//                    break;
-//                case 206:
-//                    textoSMS = textoSMS.replaceFirst("xxx", razonSocial)
-//                            .replaceFirst("xxx", xFechayHora);
-//                    break;
-//                default:
-//                    System.out.println("El idCampaign no existe");
-//                    return;
-//            }
-            
-            // Se guarda el saludo del local en la variable saludo
-            String saludo = "Saludos " + razonSocial + " ";
-            // Se concatena el saludo con textoSMS
-            textoSMS = saludo + textoSMS;
-            
-            
-            // Se cambian los "/" por "-" para que pueda tener un formato valido a la hora de verificar la fecha 
-//            fechaConRecargo = fechaConRecargo.replace("/", "-");
-//            
-//            // Obtenemos la fecha actual
-//            LocalDate fechaActual = LocalDate.now();
-//            
-//            // Obtenemos la fechaConRecargo como LocalDate
-//            LocalDate fechaRecargo = LocalDate.parse(fechaConRecargo);
-//            
-//            // Validamos si la fechaRecargo es menor a la fecha actual 
-//            if(fechaRecargo.isBefore(fechaActual)) {
-//            	System.out.println("Fecha con recargo es menor a la fecha actual: " + fechaConRecargo);
-//            	return;
-//            }
+
             
             
             // Validamos si el credito del local es mayor al debito
@@ -150,19 +114,29 @@ public class AppThreadService implements Runnable {
             System.out.println("xcreditoLocal " + xcreditoLocal);
             System.out.println("xdebitoLocal " + xdebitoLocal);
             
+            System.out.println("Contenido de xcelularIdClienteMap antes del bucle: " + xcelularIdClienteMap);
             
              // Recorremos el Array de celulares
             for (String numeroCelular : xTelefonoCelular) {
             	
+            	// Obtenemos el ID del cliente correspondiente al número de celular actual
+                String idCliente = xcelularIdClienteMap.get(numeroCelular);
+            	
+                System.out.println("Contenido de xcelularIdClienteMap: " + xcelularIdClienteMap);
+                
             	//Creamos una instancia de la clase EnvioMensajeService y la guardamos en obj1
             	EnvioMensajeService obj1 = new EnvioMensajeService();
             	
             	// A obj1 le pasamos el metodo EnviaSms de la clase EnvioMensajeService y se pasan como parametros numeroCelular, textoSMS
                 obj1.EnviaSms(numeroCelular, textoSMS);
                 
+                
+                
                 //Guardamos un registro por cada sms enviado en la tabla tblMailMarketingReporte
-                tblMailMarketingReporteService.ingresaReporte( xIdLocal, xIdMaximoReporte, xidCampaign, xIdPlantilla, numeroCelular, textoSMS, xIdDcto);
-                System.out.println("Registro guardado del local " + xIdLocal + " y El celular: " + numeroCelular);
+                tblMailMarketingReporteService.ingresaReporte( xIdLocal, xIdMaximoReporte, xidCampaign, xIdPlantilla, numeroCelular, textoSMS, xIdDcto, idCliente);
+                System.out.println("Registro guardado del local " + xIdLocal + "  El celular: " + numeroCelular + " Y el idCliente " + idCliente);
+                
+          
                 
                 // Ingrementamos el bedito del local por cada sms enviado en la tabla tblMailCredito
                 tblMailCreditoService.incrementarDebito(xIdLocal, xIdDcto);

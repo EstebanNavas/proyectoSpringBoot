@@ -46,6 +46,19 @@ public interface TblTercerosRepo extends JpaRepository<TblTerceros, Integer> {
 	List <String> findByIdLocalAndIdCampaignNative( int idLocal, int idCampaign);
 	
 	
+	@Query(
+			value = "SELECT * FROM bdaquamovil.dbo.tblTerceros " +
+			"JOIN BDMailMarketing.dbo.tblMailCampaignCliente " +
+			" ON tblTerceros.idCliente =  tblMailCampaignCliente. idCliente COLLATE Modern_Spanish_CI_AS " +
+			"WHERE tblTerceros.idLocal = ?1 " +
+			"AND ISNUMERIC(tblTerceros.telefonoCelular) = 1 " +
+            "AND LEN(tblTerceros.telefonoCelular) = 10 " +
+			"AND tblMailCampaignCliente.idCampaign = ?2",
+			nativeQuery = true
+			)
+	List <TblTerceros> obtenerTelefonosCelularAndIdClientes( int idLocal, int idCampaign);
+	
+	
 }
 
 
